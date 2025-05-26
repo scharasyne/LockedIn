@@ -1,5 +1,6 @@
 import React from 'react';
 import LandingPage from '../components/LandingPage';
+// import '../styles/globals.css';
 
 const Home: React.FC = () => {
     return (

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @theme {
+    --color-main: #2B2B2B;
+    --color-primary:#3A86FF;
+    --color-secondary: #E0E0E0;
+} */
+
 body {
     @apply bg-gray-200 text-gray-900 font-sans;
 }
