@@ -1,0 +1,40 @@
+{
+  "name": "lockedin",
+  "version": "1.0.0",
+  "description": "A web-based timer app implementing the Pomodoro technique to help users maintain focus during study sessions.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "timer",
+    "pomodoro",
+    "focus",
+    "study",
+    "productivity"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
+    "autoprefixer": "^10.4.21",
+    "next": "latest",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-modal": "^3.16.3",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.21",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "@types/react-modal": "^3.16.3",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "postcss": "^8.5.3",
+    "typescript": "latest"
+  }
+}

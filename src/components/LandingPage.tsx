@@ -1,0 +1,61 @@
+import React from 'react';
+import { useState } from 'react';
+import Modal from 'react-modal';
+import { colorPalette } from '../utils/colorPalette';
+
+const LandingPage: React.FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
+            <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
+            <div className="flex space-x-4">
+                <button 
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    onClick={() => console.log('Start Pomodoro')}
+                >
+                    Pomodoro
+                </button>
+                <button 
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    onClick={() => console.log('Start Short Study Session')}
+                >
+                    Short Study Session
+                </button>
+                <button 
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    onClick={() => console.log('Start Long Study Session')}
+                >
+                    Long Study Session
+                </button>
+                <button 
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    onClick={openModal}
+                >
+                    Customize
+                </button>
+            </div>
+
+            <Modal 
+                isOpen={isModalOpen} 
+                onRequestClose={closeModal} 
+                className="modal"
+                overlayClassName="overlay"
+            >
+                <h2 className="text-2xl font-bold mb-4">Customize Your Experience</h2>
+                <button onClick={closeModal} className="text-red-500">Close</button>
+                {/* Add customization options here */}
+            </Modal>
+        </div>
+    );
+};
+
+export default LandingPage;
