@@ -15,7 +15,9 @@ const LandingPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-black">
+        <div className="flex flex-col items-center justify-center min-h-screen w-full"
+            style={{ backgroundColor: '#E0E0E0' }}
+        >
             <div className="bg-red-500 text-white p-10">Tailwind Test</div>
             <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
             <div className="flex space-x-4">
