@@ -12,10 +12,26 @@ const formatTime = (time: number) => {
 };
 
 const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, sessionType }) => {
+  const getSessionColor = () => {
+    switch (sessionType) {
+      case 'Study':
+        return 'text-blue-400';
+      case 'ShortBreak':
+        return 'text-green-400';
+      case 'LongBreak':
+        return 'text-purple-400';
+      default:
+        return 'text-white';
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <h1 className="text-4xl font-bold text-3A86FF mb-4">{sessionType}</h1>
-      <div className="text-6xl font-mono text-2B2B2B">
+      <h1 className={`text-4xl font-bold mb-4 ${getSessionColor()}`}>
+        {sessionType === 'ShortBreak' ? 'Short Break' :
+         sessionType === 'LongBreak' ? 'Long Break' : 'Study Time'}
+      </h1>
+      <div className="text-8xl font-mono text-white">
         {formatTime(time)}
       </div>
     </div>

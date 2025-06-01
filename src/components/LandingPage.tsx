@@ -14,8 +14,8 @@ const LandingPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const handleLockIn = () => {
-    router.push('/lockin');
+  const handleLockIn = (sessionType: string) => {
+    router.push(`/lockin?type=${sessionType}`);
   };
 
   return (
@@ -27,25 +27,25 @@ const LandingPage: React.FC = () => {
         <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
         <div className="flex space-x-4">
           <button
-            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
-            onClick={handleLockIn}
+            className="bg-transparent text-white border border-white hover:bg-gray py-2 px-4 rounded transition"
+            onClick={() => handleLockIn('pomodoro')}
           >
             Pomodoro
           </button>
           <button
-            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
-            onClick={() => console.log('Start Short Study Session')}
+            className="bg-transparent text-white border border-white hover:bg-gray py-2 px-4 rounded transition"
+            onClick={() => handleLockIn('short')}
           >
             Short Study Session
           </button>
           <button
-            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
-            onClick={() => console.log('Start Long Study Session')}
+            className="bg-transparent text-white border border-white hover:bg-gray py-2 px-4 rounded transition"
+            onClick={() => handleLockIn('long')}
           >
             Long Study Session
           </button>
           <button
-            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
+            className="bg-transparent text-white border border-white hover:bg-gray py-2 px-4 rounded transition"
             onClick={openModal}
           >
             Customize
