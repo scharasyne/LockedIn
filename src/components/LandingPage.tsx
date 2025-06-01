@@ -2,10 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { colorPalette } from '../utils/colorPalette';
-import SpiralBackground from './SpiralBackground';
+import { useRouter } from 'next/router';
 
 const LandingPage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const router = useRouter();
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -15,18 +16,21 @@ const LandingPage: React.FC = () => {
         setIsModalOpen(false);
     };
 
+    const handleLockIn = () => {
+        router.push('/lockin');
+    };
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden"
             style={{ backgroundColor: '#000' }}
         >
-            <SpiralBackground />
             <div className="relative z-10 w-full flex flex-col items-center">
                 <div className="bg-red-500 text-white p-10">Tailwind Test</div>
                 <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
                 <div className="flex space-x-4">
                     <button 
                         className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-                        onClick={() => console.log('Start Pomodoro')}
+                        onClick={handleLockIn}
                     >
                         Pomodoro
                     </button>

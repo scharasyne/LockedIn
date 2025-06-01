@@ -40,8 +40,10 @@ const SpiralBackground: React.FC = () => {
       const petals = 24;
       const points = 200;
       // Make the center hole and lobes responsive as well
-      const baseRadius = minDim * (aspectRatio < 1 ? 0.38 : 0.48) + minDim * 0.04 * Math.sin(time / 2000);
-      const waveAmplitude = (aspectRatio < 1 ? 48 : 62) + (aspectRatio < 1 ? 10 : 16) * Math.sin(time / 1500);
+      // Increase baseRadius for a larger outer circle
+      const baseRadius = minDim * (aspectRatio < 1 ? 0.48 : 0.55) + minDim * 0.06 * Math.sin(time / 2000);
+      // Increase waveAmplitude for more space between patterns
+      const waveAmplitude = (aspectRatio < 1 ? 68 : 82) + (aspectRatio < 1 ? 16 : 22) * Math.sin(time / 1500);
       const waveFrequency = 7;
       for (let p = 0; p < petals; p++) {
         // Animate the rotation slightly for a subtle hypnotic effect
