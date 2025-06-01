@@ -1,72 +1,73 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { colorPalette } from '../utils/colorPalette';
 import { useRouter } from 'next/router';
 
 const LandingPage: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-    const handleLockIn = () => {
-        router.push('/lockin');
-    };
+  const handleLockIn = () => {
+    router.push('/lockin');
+  };
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden"
-            style={{ backgroundColor: '#000' }}
-        >
-            <div className="relative z-10 w-full flex flex-col items-center">
-                <div className="bg-red-500 text-white p-10">Tailwind Test</div>
-                <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
-                <div className="flex space-x-4">
-                    <button 
-                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-                        onClick={handleLockIn}
-                    >
-                        Pomodoro
-                    </button>
-                    <button 
-                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-                        onClick={() => console.log('Start Short Study Session')}
-                    >
-                        Short Study Session
-                    </button>
-                    <button 
-                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-                        onClick={() => console.log('Start Long Study Session')}
-                    >
-                        Long Study Session
-                    </button>
-                    <button 
-                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-                        onClick={openModal}
-                    >
-                        Customize
-                    </button>
-                </div>
-
-                <Modal 
-                    isOpen={isModalOpen} 
-                    onRequestClose={closeModal} 
-                    className="modal"
-                    overlayClassName="overlay"
-                >
-                    <h2 className="text-2xl font-bold mb-4">Customize Your Experience</h2>
-                    <button onClick={closeModal} className="text-red-500">Close</button>
-                    {/* Add customization options here */}
-                </Modal>
-            </div>
+  return (
+    <div
+      className="flex flex-col items-center justify-center min-h-screen w-full relative"
+      style={{ backgroundColor: '#000' }}
+    >
+      <div className="relative z-10 w-full flex flex-col items-center">
+        <h1 className="text-4xl font-bold text-blue-600 mb-8">LockedIn</h1>
+        <div className="flex space-x-4">
+          <button
+            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
+            onClick={handleLockIn}
+          >
+            Pomodoro
+          </button>
+          <button
+            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
+            onClick={() => console.log('Start Short Study Session')}
+          >
+            Short Study Session
+          </button>
+          <button
+            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
+            onClick={() => console.log('Start Long Study Session')}
+          >
+            Long Study Session
+          </button>
+          <button
+            className="bg-transparent text-white border border-white py-2 px-4 rounded hover:bg-gray py-2 px-4 rounded transition"
+            onClick={openModal}
+          >
+            Customize
+          </button>
         </div>
-    );
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="modal"
+          overlayClassName="overlay"
+        >
+          <h2 className="text-2xl font-bold mb-4">Customize Your Experience</h2>
+          <button onClick={closeModal} className="text-red-500">
+            Close
+          </button>
+          {/* add customization options here */}
+        </Modal>
+      </div>
+    </div>
+  );
 };
 
 export default LandingPage;
+
