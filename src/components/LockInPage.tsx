@@ -49,6 +49,8 @@ const LockInPage: React.FC = () => {
           cyclesForLongBreak
    } = router.query;
 
+   const isPauseDisabled = disablePause === 'true';
+
   const [fsm] = useState(() => new FSM());
   const [timer, setTimer] = useState<Timer | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(0);
@@ -229,15 +231,15 @@ const LockInPage: React.FC = () => {
           {!isRunning && !isPaused && (
             <button 
               onClick={handleStart}
-              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-gray-800 transition"
+              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-white hover:text-primary transition"
             >
               Start
             </button>
           )}
-          {isRunning && !isPaused && (
+          {isRunning && !isPaused && !isPauseDisabled && (
             <button 
               onClick={handlePause}
-              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-gray-800 transition"
+              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-white hover:text-primary transition"
             >
               Pause
             </button>
@@ -245,14 +247,14 @@ const LockInPage: React.FC = () => {
           {isPaused && (
             <button 
               onClick={handleResume}
-              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-gray-800 transition"
+              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-white hover:text-primary transition"
             >
               Resume
             </button>
           )}
           <button 
             onClick={handleStop}
-            className="bg-white text-black py-2 px-6 rounded-full font-bold hover:bg-gray-300 transition"
+            className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-white hover:text-primary transition"
           >
             Stop
           </button>
