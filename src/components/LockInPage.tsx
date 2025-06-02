@@ -180,7 +180,7 @@ const LockInPage: React.FC = () => {
           {!isRunning && !isPaused && (
             <button 
               onClick={handleStart}
-              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:border-green-600 hover:bg-gray-800 transition"
+              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-gray-800 transition"
             >
               Start
             </button>
@@ -196,7 +196,7 @@ const LockInPage: React.FC = () => {
           {isPaused && (
             <button 
               onClick={handleResume}
-              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:border-blue-600 hover:bg-gray-800 transition"
+              className="bg-black border border-white text-white py-2 px-6 rounded-full font-bold hover:bg-gray-800 transition"
             >
               Resume
             </button>
