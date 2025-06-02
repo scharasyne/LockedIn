@@ -85,13 +85,6 @@ const LandingPage: React.FC = () => {
       >
         CUSTOM
       </button>
-      {/* <PopUpModal
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        title={popupTitle}
-      >
-        <p>This is a customizable popup. You clicked: {popupTitle}</p>
-      </PopUpModal> */}
       <PopUpModal
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}

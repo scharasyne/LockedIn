@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface PopUpModalProps {
   isOpen: boolean;
@@ -34,6 +35,7 @@ const musicOptions = [
 ];
 
 const PopUpModal: React.FC<PopUpModalProps> = ({ isOpen, onClose, title, onStart }) => {
+  const router = useRouter();
   const [selectedMusic, setSelectedMusic] = useState('None');
   const [disablePause, setDisablePause] = useState(false);
 
@@ -49,10 +51,47 @@ const PopUpModal: React.FC<PopUpModalProps> = ({ isOpen, onClose, title, onStart
   if (!isOpen) return null;
 
   const handleStart = () => {
+    const sessionTypeMap: Record<string, string> = {
+      'OG Pomodoro': 'pomodoro',
+      'Short Study Session': 'short',
+      'Long Study Session': 'long',
+      'Customize': 'custom'
+    };
+
+    const sessionType = sessionTypeMap[title] || 'pomodoro';
+
     if (title === 'Customize') {
-      onStart({
+      // For custom sessions, pass the custom parameters via URL query
+      const customParams = {
+        workMin,
+        workSec,
+        breakMin,
+        breakSec,
+        longBreakMin,
+        longBreakSec,
+        cyclesForLongBreak,
         music: selectedMusic,
-        disablePause,
+        disablePause: disablePause.toString()
+      };
+      
+      const queryString = new URLSearchParams(customParams as any).toString();
+      router.push(`/lockin?type=${sessionType}&${queryString}`);
+    } else {
+      // For preset sessions, just pass the type and basic options
+      const params = {
+        type: sessionType,
+        music: selectedMusic,
+        disablePause: disablePause.toString()
+      };
+      
+      const queryString = new URLSearchParams(params).toString();
+      router.push(`/lockin?${queryString}`);
+    }
+  
+    onStart({
+      music: selectedMusic,
+      disablePause,
+      ...(title === 'Customize' && {
         customCycles: {
           workMin,
           workSec,
@@ -62,10 +101,9 @@ const PopUpModal: React.FC<PopUpModalProps> = ({ isOpen, onClose, title, onStart
           longBreakSec,
           cyclesForLongBreak,
         }
-      });
-    } else {
-      onStart({ music: selectedMusic, disablePause });
-    }
+      })
+    });
+    
     onClose();
   };
 
