@@ -20,8 +20,8 @@ const presetSessions: Record<string, Session> = {
     cyclesForLongBreak: 4
   },
   short: { 
-    studyDuration: 0.2 * 60 * 1000, 
-    breakDuration: 0.1 * 60 * 1000,
+    studyDuration: 15 * 60 * 1000, 
+    breakDuration: 3 * 60 * 1000,
     longBreakDuration: 10 * 60 * 1000,
     cyclesForLongBreak: 4
   },
