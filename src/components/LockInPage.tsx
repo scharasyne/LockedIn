@@ -55,7 +55,7 @@ const LockInPage: React.FC = () => {
   const [hasStarted, setHasStarted] = useState(false);
 
   const sessionType = (type as string) || 'pomodoro';
-  
+
   const getSessionConfig = (): Session => {
     if (sessionType === 'custom' && workMin && breakMin) {
       return {
@@ -164,8 +164,17 @@ const LockInPage: React.FC = () => {
           <TimerDisplay 
             time={Math.max(0, Math.floor(timeRemaining / 1000))} 
             sessionType={getSessionType()} 
+            totalTime={Math.floor(getCurrentDuration() / 1000)}
           />
         </div>
+
+        {music && music !== 'None' && (
+          <div className='mb-6 text-center'>
+            <p className='text-white text-lg font-medium font-mono'>
+              🎵 {music}
+            </p>
+          </div>
+        )}
 
         <div className="flex space-x-4">
           {!isRunning && !isPaused && (

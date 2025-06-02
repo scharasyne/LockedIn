@@ -19,24 +19,7 @@ const LandingPage: React.FC = () => {
     
     <div
       className="flex flex-col items-center justify-center min-h-screen w-full px-4 text-white font-poppins bg-primary"
-        
     >
-      {/* <div className="absolute top-4 right-6 flex space-x-6 text-white font-medium text-sm sm:text-base">
-        <a
-          href="/"
-          className="bg-transparent border-none p-0 m-0 hover:underline text-white no-underline outline-none focus:outline-none focus-visible:outline-none"
-        >
-          Home
-        </a>
-
-        <a
-          href="/about"
-          className="bg-transparent border-none p-0 m-0 hover:underline text-white no-underline outline-none focus:outline-none focus-visible:outline-none"
-        >
-          About
-        </a>
-
-      </div> */}
 
       <div className="text-center mb-10">
         <h1 className="text-7xl sm:text-8xl text-white animate-fadeInUp">
