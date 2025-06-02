@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { musicOptions } from '@/utils/musicConfig';
 
 interface PopUpModalProps {
   isOpen: boolean;
@@ -27,12 +28,12 @@ const sessionDescriptions: Record<string, string> = {
   'Customize': "Create your own focus rhythm! Set your own work and break durations and the number of cycles before a long break.",
 };
 
-const musicOptions = [
-  'None','Lo-Fi',
-  'White Noise',
-  'Classical Music',
-  'Beta Waves for Concentration'
-];
+// const musicOptions = [
+//   'None','Lo-Fi',
+//   'White Noise',
+//   'Classical Music',
+//   'Beta Waves for Concentration'
+// ];
 
 const PopUpModal: React.FC<PopUpModalProps> = ({ isOpen, onClose, title, onStart }) => {
   const router = useRouter();
@@ -219,7 +220,7 @@ const PopUpModal: React.FC<PopUpModalProps> = ({ isOpen, onClose, title, onStart
             className="w-full border border-gray-600 rounded bg-[#232323] text-gray-100 px-3 py-2 focus:outline-none focus:border-blue-500"
           >
             {musicOptions.map((option) => (
-              <option key={option} value={option}>{option}</option>
+              <option key={option.value} value={option.value}>{option.label}</option>
             ))}
           </select>
         </div>
