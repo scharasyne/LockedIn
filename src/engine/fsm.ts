@@ -1,10 +1,12 @@
 class FSM {
     private state: string;
     private completedSessions: number;
+    private cyclesForLongBreak: number;
 
-    constructor() {
+    constructor(cyclesForLongBreak: number = 4) {
         this.state = 'Idle';
         this.completedSessions = 0;
+        this.cyclesForLongBreak = cyclesForLongBreak;
     }
 
     public start() {
@@ -33,7 +35,7 @@ class FSM {
     public timerEnd() {
         if (this.state === 'Study') {
             this.completedSessions++;
-            if (this.completedSessions % 4 === 0) {
+            if (this.completedSessions % this.cyclesForLongBreak === 0) {
                 this.state = 'LongBreak';
             } else {
                 this.state = 'ShortBreak';
