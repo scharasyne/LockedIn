@@ -50,6 +50,15 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, sessionType, totalTim
     <div className="flex flex-col items-center justify-center h-full">
       <div className='relative flex items-center justify-center'>
         <svg className="transform -rotate-90" width="440" height="440">
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
           {/* Background circle */}
           <circle
             cx="220"
@@ -65,17 +74,49 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, sessionType, totalTim
             cy="220"
             r={radius}
             stroke={getRingColor()}
-            strokeWidth="8"
+            strokeWidth="16"
             fill="transparent"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
+            opacity="0.6"
+            filter="blur(12px)"
+            className="transition-all duration-300 ease-in-out"
+          />
+
+          <circle
+            cx="220"
+            cy="220"
+            r={radius}
+            stroke={getRingColor()}
+            strokeWidth="12"
+            fill="transparent"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            opacity="0.8"
+            filter="blur(6px)"
+            className="transition-all duration-300 ease-in-out"
+          />
+          
+          {/* Main progress circle */}
+          <circle
+            cx="220"
+            cy="220"
+            r={radius}
+            stroke={getRingColor()}
+            strokeWidth="10"
+            fill="transparent"
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            filter="url(#glow)"
             className="transition-all duration-300 ease-in-out"
           />
         </svg>
 
         <div className="absolute flex flex-col items-center justify-center">
-          <h1 className={`text-6xl font-bold mb-2 ${getSessionColor()} text-center`}>
+          <h1 className={`text-6xl font-bold mb-4 ${getSessionColor()} text-center`}>
             {sessionType === 'ShortBreak' ? 'Short Break' :
              sessionType === 'LongBreak' ? 'Long Break' : 'Study Time'}
           </h1>
