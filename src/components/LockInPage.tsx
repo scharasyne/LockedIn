@@ -47,9 +47,9 @@ const LockInPage: React.FC = () => {
           longBreakMin,
           longBreakSec,
           cyclesForLongBreak
-   } = router.query;
+  } = router.query;
 
-   const isPauseDisabled = disablePause === 'true';
+  const isPauseDisabled = disablePause === 'true';
 
   const [fsm] = useState(() => new FSM());
   const [timer, setTimer] = useState<Timer | null>(null);
