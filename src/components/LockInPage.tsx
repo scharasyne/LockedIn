@@ -4,6 +4,8 @@ import TimerDisplay from './TimerDisplay';
 import { Timer } from '@/engine/timer';
 import FSM from '@/engine/fsm';
 import SpiralBackground from './SpiralBackground';
+import { useAudio } from '@/utils/useAudio';
+import { getMusicSrc } from '@/utils/musicConfig';
 
 interface Session {
   studyDuration: number;
@@ -53,6 +55,10 @@ const LockInPage: React.FC = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [volume, setVolumeState] = useState(0.5);
+
+  const musicSrc = getMusicSrc(music as string);
+  const { play: playMusic, pause: pauseMusic, isPlaying: isMusicPlaying, isLoaded: isMusicLoaded, setVolume } = useAudio(musicSrc);
 
   const sessionType = (type as string) || 'pomodoro';
 
@@ -69,6 +75,11 @@ const LockInPage: React.FC = () => {
   };
 
   const config = getSessionConfig();
+
+  const handleVolumeChange = (newVolume: number) => {
+    setVolumeState(newVolume);
+    setVolume(newVolume);
+  }
 
   const getCurrentDuration = () => {
     const state = fsm.getState();
@@ -121,6 +132,10 @@ const LockInPage: React.FC = () => {
       setIsRunning(true);
       setIsPaused(false);
       setHasStarted(true);
+
+      if (musicSrc && isMusicLoaded){
+        playMusic();
+      }
     }
   };
 
@@ -128,6 +143,10 @@ const LockInPage: React.FC = () => {
     if (timer && isRunning) {
       timer.pause();
       setIsPaused(true);
+
+      if (musicSrc) {
+        pauseMusic();
+      }
     }
   };
 
@@ -135,6 +154,10 @@ const LockInPage: React.FC = () => {
     if (timer && isPaused) {
       timer.resume();
       setIsPaused(false);
+
+      if (musicSrc && isMusicLoaded) {
+        playMusic();
+      }
     }
   };
 
@@ -145,6 +168,11 @@ const LockInPage: React.FC = () => {
       setIsPaused(false);
       setHasStarted(false);
       fsm.reset();
+
+      if (musicSrc) {
+        pauseMusic();
+      }
+
       router.push('/');
     }
   };
@@ -171,8 +199,29 @@ const LockInPage: React.FC = () => {
         {music && music !== 'None' && (
           <div className='mb-6 text-center'>
             <p className='text-white text-lg font-medium font-mono'>
-              🎵 {music}
+              🎵 {music} {isMusicPlaying ? '▶️' : '⏸️'}
             </p>
+            {!isMusicLoaded && musicSrc && (
+              <p className='text-gray-400 text-sm'>Loading music...</p>
+            )}
+
+            <div className='mt-3 flex items-center justify-center space-x-3'>
+              <div className='relative flex items-center justify-center'>
+                <span className='text-white text-sm'>🔊</span>
+                <div className="relative mx-3">
+                  <input 
+                    type='range'
+                    min='0'
+                    max='1'
+                    step='0.1'
+                    value={volume}
+                    onChange={(e) => handleVolumeChange(Number(e.target.value))}
+                    className='ios-volume-slider'
+                  />
+                </div>
+                <span className='text-white text-sm w-10 text-right'>{Math.round(volume * 100)}%</span>
+              </div>
+            </div>
           </div>
         )}
 
