@@ -56,7 +56,7 @@ const SpiralBackground: React.FC = () => {
           const angle = 2 * Math.PI * t;
           // each petal has a different length and offset
           const radius =
-            (baseRadius-11) +
+            baseRadius +
             waveAmplitude *
               lengthFactor *
               Math.sin(waveFrequency * angle + petalPhase + offset + Math.sin(timeFactor + angle + offset)) +
