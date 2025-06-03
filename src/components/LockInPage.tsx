@@ -4,6 +4,7 @@ import TimerDisplay from './TimerDisplay';
 import { Timer } from '@/engine/timer';
 import FSM from '@/engine/fsm';
 import SpiralBackground from './SpiralBackground';
+import ParticlesBackground from './ParticlesBackground';
 import { useAudio } from '@/utils/useAudio';
 import { getMusicSrc } from '@/utils/musicConfig';
 
@@ -185,10 +186,8 @@ const LockInPage: React.FC = () => {
     if (state === 'LongBreak') return 'LongBreak';
     return 'Study';
   };
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden" style={{ backgroundColor: '#000' }}>
-      <SpiralBackground />
+  return (    <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden" style={{ backgroundColor: '#000' }}>
+      <ParticlesBackground key={`particles-${sessionType}-${Date.now()}`} />
       <div className="relative z-10 w-full flex flex-col items-center">
         <div className="mb-8">
           <TimerDisplay 
