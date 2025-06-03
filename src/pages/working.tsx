@@ -7,7 +7,7 @@ const WorkingPage: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <h1 className="text-3xl font-bold text-blue-600 mb-4">LockedIn - Focus Timer</h1>
-            <TimerDisplay time={0} sessionType="Study" />
+            <TimerDisplay time={0} sessionType="Study" totalTime={0} />
             <Controls
                 onStart={() => {}}
                 onPause={() => {}}
