@@ -7,6 +7,7 @@ import FSM from '@/engine/fsm';
 import ParticlesBackground from './ParticlesBackground';
 import { useAudio } from '@/utils/useAudio';
 import { getMusicSrc } from '@/utils/musicConfig';
+import { useOneShotAudio } from '@/utils/useOneShotAudio';
 
 interface Session {
   studyDuration: number;
@@ -59,9 +60,12 @@ const LockInPage: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [volume, setVolumeState] = useState(0.5);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [bufferSessionType, setBufferSessionType] = useState<'Study' | 'ShortBreak' | 'LongBreak'>('Study');
 
   const musicSrc = getMusicSrc(music as string);
   const { play: playMusic, pause: pauseMusic, isPlaying: isMusicPlaying, isLoaded: isMusicLoaded, setVolume } = useAudio(musicSrc);
+  const { play: playEndSound, stop: stopEndSound } = useOneShotAudio('/music/end.mp3');
 
   const sessionType = (type as string) || 'pomodoro';
 
@@ -103,13 +107,19 @@ const LockInPage: React.FC = () => {
     const newTimer = new Timer(
       duration,
       (remaining) => setTimeRemaining(remaining),
-      () => {
-        fsm.timerEnd();
+      async () => {
         setIsRunning(false);
         setIsPaused(false);
+        setIsBuffering(true);
+        setTimeRemaining(0);
+        setBufferSessionType(getSessionType());
+        playEndSound();
         setTimeout(() => {
+          stopEndSound();
+          setIsBuffering(false);
+          fsm.timerEnd();
           initializeTimer(true);
-        }, 1000);
+        }, 10000);
       }
     );
     
@@ -185,13 +195,15 @@ const LockInPage: React.FC = () => {
     if (state === 'ShortBreak') return 'ShortBreak';
     if (state === 'LongBreak') return 'LongBreak';
     return 'Study';
-  };  return (    <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden" style={{ backgroundColor: '#000' }}>
+  }; 
+
+  return (    <div className="flex flex-col items-center justify-center min-h-screen w-full relative overflow-hidden" style={{ backgroundColor: '#000' }}>
       <ParticlesBackground key={`particles-${sessionType}`} />
       <div className="relative z-10 w-full flex flex-col items-center">
         <div className="mb-8">
           <TimerDisplay 
-            time={Math.max(0, Math.floor(timeRemaining / 1000))} 
-            sessionType={getSessionType()} 
+            time={isBuffering ? 0 : Math.max(0, Math.floor(timeRemaining / 1000))} 
+            sessionType={isBuffering ? bufferSessionType : getSessionType()} 
             totalTime={Math.floor(getCurrentDuration() / 1000)}
           />
         </div>
