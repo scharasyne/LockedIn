@@ -185,6 +185,7 @@ const LockInPage: React.FC = () => {
       if (musicSrc) {
         pauseMusic();
       }
+      stopEndSound();
 
       router.push('/');
     }
